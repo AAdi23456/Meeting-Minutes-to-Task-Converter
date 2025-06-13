@@ -1,0 +1,144 @@
+AI Meeting Minutes to Task Converter
+Objective:
+Build an AI-powered transcript parser section in the same web app.
+Allow users to paste an entire meeting transcript like:
+“Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client follow-up by Wednesday. Shreya please review the marketing deck tonight.”
+
+Functionality Requirements:
+Auto-extract all tasks with:
+Task Description
+Assignee
+Deadline
+Default priority P3 unless specified
+Display all tasks in the same task board/list UI.
+Example Output:
+Task	Assigned To	Due Date/Time	Priority
+Take the landing page	Aman	10:00 PM, Tomorrow	P3
+Client follow-up	Rajeev	Wednesday	P3
+Review the marketing deck	Shreya	Tonight	P3
+🎨 UI Requirement:
+Visually appealing web app, not just a functional one.
+Clear task cards or list view.
+Color codes or badges for priority.
+Clean and intuitive layout.
+Responsive and usable on both desktop and mobile.
+
+Phases for  developing this project
+
+
+
+PHASE 0 – Project Setup
+Initialize Next.js project
+
+Install required dependencies:
+
+bash
+Copy
+Edit
+npm install shadcn/ui openai dayjs zod clsx
+Setup shadcn/ui components via CLI
+
+Create page structure:
+
+/ – transcript input + output UI
+
+/tasks – task list view (optional routing)
+
+🤖 PHASE 1 – AI Transcript Parsing
+Create a React component with:
+
+Transcript input (textarea)
+
+“Parse Tasks” button
+
+Define a consistent Task interface:
+
+ts
+Copy
+Edit
+interface Task {
+  description: string
+  assignee: string
+  dueDate: string
+  priority: 'P1' | 'P2' | 'P3'
+}
+Create prompt template for GPT:
+
+plaintext
+Copy
+Edit
+Extract tasks from this transcript. Format:
+Task: [description]
+Assigned To: [name]
+Due Date: [natural language or date/time]
+Priority: [P1–P3, default P3]
+
+Transcript:
+"""[user input here]"""
+Create OpenAI call function
+
+Use Zod to validate and sanitize AI response
+
+🧩 PHASE 2 – Task Rendering UI
+Build reusable TaskCard component using shadcn:
+
+Title/description
+
+Assignee badge
+
+Due date (formatted with Day.js)
+
+Priority badge (color-coded)
+
+Display parsed tasks in a list or responsive grid
+
+Basic error handling if parsing fails
+
+🎨 PHASE 3 – UI Polish & Responsiveness
+Use Tailwind grid/flex to make layout responsive
+
+Style for clarity:
+
+Proper padding/margin
+
+Font weights, contrast, hierarchy
+
+Ensure mobile usability:
+
+Input auto-scaling
+
+Cards stack nicely on small screens
+
+Add priority color codes:
+
+P1 → red
+
+P2 → yellow
+
+P3 → gray
+
+💾 PHASE 4 – Local Data Handling (Optional)
+Store parsed tasks in local state or context
+
+Optional: Save tasks to localStorage
+
+Optional: Export tasks (JSON or CSV)
+
+🧪 PHASE 5 – Robustness & Edge Cases
+Add loading + error states for OpenAI call
+
+Test parsing with various transcript types:
+
+Imperatives (“Shreya, do this”)
+
+Indirect asks (“Can you take care of…”)
+
+Missing deadlines
+
+Fallback/defaults:
+
+Priority → default to P3
+
+Assignee → fallback = “Unassigned”
+
+Date → fallback = “Unspecified”

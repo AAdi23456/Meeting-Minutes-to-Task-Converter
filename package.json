@@ -1,0 +1,12 @@
+{
+  "name": "meeting-minutes-to-task-converter-root",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd meeting-minutes-task-converter && npm run dev",
+    "build": "cd meeting-minutes-task-converter && npm run build",
+    "start": "cd meeting-minutes-task-converter && npm run start",
+    "lint": "cd meeting-minutes-task-converter && npm run lint",
+    "test": "cd meeting-minutes-task-converter && npm run test"
+  }
+} 
